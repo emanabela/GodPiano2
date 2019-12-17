@@ -45,6 +45,7 @@ namespace Piano2
                 Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
                 //if (iFlip == true)
                 //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                bmp.MakeTransparent();
                 Image = bmp;
             }
             else
@@ -52,6 +53,7 @@ namespace Piano2
                 Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
                 //if (iFlip == true)
                 //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                bmp.MakeTransparent();
                 Image = bmp;
             }
 
@@ -80,6 +82,7 @@ namespace Piano2
         {
             if (e.Button == MouseButtons.Left)
             {
+               
                 isDragging = true;
                 //pitch = e.Y; //this is the current Y coordinate of mouse
                 this.Location = new Point(this.Location.X, e.Y);
@@ -162,6 +165,7 @@ namespace Piano2
                     Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
                     //if (iFlip == true)
                     //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    bmp.MakeTransparent();
                     Image = bmp;
                 }
                 else
@@ -169,6 +173,7 @@ namespace Piano2
                     Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
                     //if (iFlip == true)
                     //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    bmp.MakeTransparent();
                     Image = bmp;
                 }
             }
@@ -220,11 +225,13 @@ namespace Piano2
                 if (this.isBlack == true)
                 {
                     Bitmap bmp = new Bitmap(path + "Black" + bNoteShape + ".bmp", true);
+                    bmp.MakeTransparent();
                     Image = bmp;
                 }
                 else
                 {
                     Bitmap newbmp = new Bitmap(path + bNoteShape + ".bmp", true);
+                    newbmp.MakeTransparent();
                     this.Image = newbmp;
                 }
                 this.noteDuration = duration;

@@ -205,8 +205,6 @@ namespace Piano2
                     }
                 }
             }
-            
-            
             //throw new NotImplementedException();
         }
 
@@ -258,9 +256,9 @@ namespace Piano2
             this.Controls.Add(panel1);
             //adding the panel2 ~ the music lines.
             this.panel2.Location = new Point(xLoc, 60);
-            this.panel2.BackColor = Color.Azure;
+            
             this.panel2.BackgroundImage = Image.FromFile(@"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Images\MusicLines.png");
-            //Image background = Image.FromFile(@"C:\Users\desir\Documents\forkbasic\GodPiano\Piano2\Piano2\bin\Debug\Notes-Images\Staff2.bmp");
+            this.panel2.BackColor = Color.Transparent;
             this.panel2.Size = new Size(669, 192);
             this.Controls.Add(panel2);
             
