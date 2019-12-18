@@ -10,12 +10,12 @@ namespace Piano2
 {
     class MusicNote : PictureBox
     {
-        string soundSpath = @"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
-        public string path = @"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Images\";
+        string soundSpath = @"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
+        public string path = @"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\";
         public int pitch;
         private Stopwatch stopWatch;
         public string noteShape;
-        public int noteDuration;
+        public int noteDuration, sizeY = 40;
         public bool flip, isBlack;
         public double count = 0;
         public enum accidental
@@ -37,24 +37,40 @@ namespace Piano2
             isBlack = iIsBlack;
 
             Location = new Point(100, 50);
-            Size = new Size(25, 40);
+            Size = new Size(25, sizeY);
             /*  geting the img of music note*/
             //Bitmap bmp = new Bitmap(@"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Images\Quaver.png",true);
             if (iIsBlack == true)
             {
-                Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
-                //if (iFlip == true)
-                //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                bmp.MakeTransparent();
-                Image = bmp;
+                if (iFlip == true)
+                {
+                    Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                    this.Size = new Size(25, 80);
+                    bmp.MakeTransparent();
+                    Image = bmp;
+                }
+                else
+                {
+                    Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                    bmp.MakeTransparent();
+                    Image = bmp;
+                }
             }
             else
             {
-                Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
-                //if (iFlip == true)
-                //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                bmp.MakeTransparent();
-                Image = bmp;
+                if (iFlip == true)
+                {
+                    Bitmap bmp = new Bitmap(path + "Flipped" + noteShape + ".bmp", true);
+                    this.Size = new Size(25, 80);
+                    bmp.MakeTransparent();
+                    Image = bmp;
+                }
+                else
+                {
+                    Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
+                    bmp.MakeTransparent();
+                    Image = bmp;
+                }
             }
 
 
@@ -147,6 +163,11 @@ namespace Piano2
                     pitch = 24;
                 else if (this.Top >= -10)
                     pitch = 25;
+
+                if (this.Top <= 60)
+                    this.flip = true;
+                else
+                    this.flip = false;
                 #endregion
 
                 isDragging = false;
@@ -154,25 +175,41 @@ namespace Piano2
                 int z = pitch;
                 //to check black: 2,4,7,9,11,14,16,19,21,23
                 if (z == 2 || z == 4 || z == 7 || z == 9 || z == 11 || z == 14 || z == 16 || z == 19 || z == 21 || z == 23)
-                    isBlack = true;
+                    this.isBlack = true;
                 else
-                    isBlack = false;
+                    this.isBlack = false;
 
-                if (isBlack == true)
+                if (this.isBlack == true)
                 {
-                    Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
-                    //if (iFlip == true)
-                    //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    bmp.MakeTransparent();
-                    Image = bmp;
+                    if (this.flip == true)
+                    {
+                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        this.Size = new Size(25, 80);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
                 }
                 else
                 {
-                    Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
-                    //if (iFlip == true)
-                    //    bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    bmp.MakeTransparent();
-                    Image = bmp;
+                    if (this.flip == true)
+                    {
+                        Bitmap bmp = new Bitmap(path + "Flipped" + noteShape + ".bmp", true);
+                        this.Size = new Size(25, 80);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
                 }
                 NotePlay();
             }
@@ -226,17 +263,37 @@ namespace Piano2
 
                 if (this.isBlack == true)
                 {
-                    Bitmap bmp = new Bitmap(path + "Black" + bNoteShape + ".bmp", true);
-                    bmp.MakeTransparent();
-                    Image = bmp;
+                    if (this.flip == true)
+                    {
+                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        this.Size = new Size(25, 80);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
                 }
                 else
                 {
-                    Bitmap newbmp = new Bitmap(path + bNoteShape + ".bmp", true);
-                    newbmp.MakeTransparent();
-                    this.Image = newbmp;
+                    if (this.flip == true)
+                    {
+                        Bitmap bmp = new Bitmap(path + "Flipped" + noteShape + ".bmp", true);
+                        this.Size = new Size(25, 80);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(path + noteShape + ".bmp", true);
+                        bmp.MakeTransparent();
+                        Image = bmp;
+                    }
                 }
-                
+
             }
         }
         private void NoteDrag(object sender, MouseEventArgs e)
