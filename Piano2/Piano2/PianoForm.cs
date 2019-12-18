@@ -257,7 +257,7 @@ namespace Piano2
             //adding the panel2 ~ the music lines.
             this.panel2.Location = new Point(xLoc, 60);
             
-            this.panel2.BackgroundImage = Image.FromFile(@"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Images\MusicLines.png");
+            this.panel2.BackgroundImage = Image.FromFile(@"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\MusicLines.png");
             this.panel2.BackColor = Color.Transparent;
             this.panel2.Size = new Size(669, 192);
             this.Controls.Add(panel2);

@@ -51,7 +51,7 @@ namespace Piano2
                 }
                 else
                 {
-                    Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                    Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
                     bmp.MakeTransparent();
                     Image = bmp;
                 }
@@ -190,7 +190,7 @@ namespace Piano2
                     }
                     else
                     {
-                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
                         bmp.MakeTransparent();
                         Image = bmp;
                     }
@@ -272,7 +272,7 @@ namespace Piano2
                     }
                     else
                     {
-                        Bitmap bmp = new Bitmap(path + "FlippedBlack" + noteShape + ".bmp", true);
+                        Bitmap bmp = new Bitmap(path + "Black" + noteShape + ".bmp", true);
                         bmp.MakeTransparent();
                         Image = bmp;
                     }
