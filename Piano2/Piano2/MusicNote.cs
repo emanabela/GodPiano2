@@ -65,7 +65,6 @@ namespace Piano2
             this.MouseDown += new MouseEventHandler(StartDrag);
             this.MouseUp += new MouseEventHandler(StopDrag);
             this.MouseMove += new MouseEventHandler(NoteDrag);
-            this.MouseClick += new MouseEventHandler(NoteClick);
         }
 
         //i am not sure i couldl explain what this function does. is from notes.
@@ -82,10 +81,9 @@ namespace Piano2
         {
             if (e.Button == MouseButtons.Left)
             {
-               
                 isDragging = true;
                 //pitch = e.Y; //this is the current Y coordinate of mouse
-                this.Location = new Point(this.Location.X, e.Y);
+                //this.Location = new Point(this.Location.X, e.Y);
             }
             if(e.Button == MouseButtons.Right)
             {
@@ -176,6 +174,7 @@ namespace Piano2
                     bmp.MakeTransparent();
                     Image = bmp;
                 }
+                NotePlay();
             }
             if(e.Button == MouseButtons.Right)
             {
@@ -222,6 +221,9 @@ namespace Piano2
                     duration = 18;
                 }
 
+                this.noteDuration = duration;
+                this.noteShape = bNoteShape;
+
                 if (this.isBlack == true)
                 {
                     Bitmap bmp = new Bitmap(path + "Black" + bNoteShape + ".bmp", true);
@@ -234,7 +236,7 @@ namespace Piano2
                     newbmp.MakeTransparent();
                     this.Image = newbmp;
                 }
-                this.noteDuration = duration;
+                
             }
         }
         private void NoteDrag(object sender, MouseEventArgs e)
@@ -247,15 +249,14 @@ namespace Piano2
             }
         }
 
-        private void NoteClick(object sender, MouseEventArgs e)
+        private void NotePlay()
         {
-            if (e.Button == MouseButtons.Middle) // play the note
-            {
+            
                 SoundPlayer sp = new SoundPlayer();
                 sp.SoundLocation = soundSpath + this.pitch.ToString() + ".wav";
                 sp.Play();
                 Task.Delay(this.noteDuration*1000).ContinueWith(t => sp.Stop());
-            }
+            
         }
         #endregion
 
@@ -271,6 +272,11 @@ namespace Piano2
                 return tickCount = Convert.ToInt32(Math.Floor(counter / 63));
             else
                 return tickCount = Convert.ToInt32(counter / 63);
+
+        }
+
+        private void getMouseLoc(object sender, MouseEventArgs e)
+        {
 
         }
 
