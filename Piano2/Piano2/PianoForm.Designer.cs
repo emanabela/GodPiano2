@@ -95,6 +95,7 @@
             this.DropDown.TabIndex = 4;
             this.DropDown.Tag = "";
             this.DropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.DropDown.SelectedItem = "Moderato";
             // 
             // label1
             // 
@@ -107,11 +108,13 @@
             // 
             // CurrentNotes
             // 
+            this.CurrentNotes.Enabled = false;
             this.CurrentNotes.FormattingEnabled = true;
             this.CurrentNotes.ItemHeight = 25;
             this.CurrentNotes.Location = new System.Drawing.Point(25, 34);
             this.CurrentNotes.Name = "CurrentNotes";
-            this.CurrentNotes.Size = new System.Drawing.Size(151, 329);
+            this.CurrentNotes.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.CurrentNotes.Size = new System.Drawing.Size(151, 454);
             this.CurrentNotes.TabIndex = 6;
             this.CurrentNotes.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 

@@ -52,41 +52,6 @@ namespace Piano2
         {
             InitializeComponent();    
         }
-
-        #region DrawPianoButtons() (we dont use it)
-        private void DrawPianoButtons()
-        {
-            Muskey mk;
-            BlackMuskey bmk;
-            /*  draw the white buttons*/
-            for (int k = 0; k < 7; k++)
-            {
-                int pitch = whitePitch[k];
-                int xPos = k * 20;
-                mk = new Muskey(pitch,xPos,50);
-                mk.MouseDown += new MouseEventHandler(this.button1_MouseDown);
-                mk.MouseDown += new MouseEventHandler(this.button1_MouseUp);
-                this.panel1.Controls.Add(mk);
-            }
-            int Offs = 20;
-            for (int k = 0; k < 5; k++)
-            {
-                int pitch = blackPitch[k];
-                /*  note here we are using xPoss unlike in notes (xPos)*/
-                int xPoss = xPos[k];
-                bmk = new BlackMuskey(pitch,xPoss,50);
-                /*  note here we use bmk unlike in the notes*/
-                bmk.MouseDown += new MouseEventHandler(this.button1_MouseDown);
-                bmk.MouseDown += new MouseEventHandler(this.button1_MouseUp);
-                this.panel1.Controls.Add(bmk);
-                //this.panel1.Controls[this.panel1.Controls.Count-1].BringToFront();
-                this.Controls[this.panel1.Controls.Count-1].BringToFront();
-            }
-        }
-        #endregion  
-
-
-
         private void button1_MouseUp(object sender, MouseEventArgs e)
         {
            
@@ -244,7 +209,8 @@ namespace Piano2
                         sp.SoundLocation =soundSpath + mk.notePitch.ToString() + ".wav";
                         //i think we need to specify the duration 
                         sp.Play();
-                   
+                        AddtoList(mk.notePitch);
+                                
                     }
                 }
             }
@@ -368,6 +334,7 @@ namespace Piano2
         {
             MusicNoteObjectsCollection.Clear();
             this.panel2.Controls.Clear();
+            CurrentNotes.Items.Clear();
             iXloc = 40;
         }
 
@@ -381,7 +348,7 @@ namespace Piano2
 
                foreach (MusicNote mn in MusicNoteObjectsCollection)
                {
-                 writer.WriteLine(mn.pitch.ToString() +","+ mn.noteDuration.ToString() + "," + mn.noteShape + "," + mn.flip + "," + mn.isBlack);
+                 writer.WriteLine(mn.pitch.ToString() +","+ mn.noteDuration.ToString() + "," + mn.noteShape + "," + mn.flip + "," + mn.isBlack + "," + mn.Location.X + "," + mn.Location.Y);
                }
 
                 writer.Close();
@@ -391,6 +358,10 @@ namespace Piano2
 
         private void button3_Click(object sender, EventArgs e) //Load
         {
+            MusicNoteObjectsCollection.Clear();
+            this.panel2.Controls.Clear();
+            CurrentNotes.Items.Clear();
+            iXloc = 40;
             using (OpenFileDialog loadsong = new OpenFileDialog() { ValidateNames = true, Multiselect = false })
             {
                 string line = "";
@@ -403,7 +374,11 @@ namespace Piano2
                         if (line != null)
                         {
                             string[] entries = line.Split(',');
-                            //MusicNote song = new MusicNote();
+                            MusicNote song = new MusicNote(Int32.Parse(entries[0]), Int32.Parse(entries[1]), entries[2], bool.Parse(entries[3]), bool.Parse(entries[4]));
+                            MusicNoteObjectsCollection.Add(song);
+                            song.Location = new Point(Int32.Parse(entries[5]), Int32.Parse(entries[6]));
+                            this.panel2.Controls.Add(song);
+                            AddtoList(Int32.Parse(entries[0]));
                         }
                     }
                 }
@@ -414,7 +389,12 @@ namespace Piano2
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.CurrentNotes.DataSource = MusicNoteObjectsCollection;
+            CurrentNotes.Items.Add(MusicNoteObjectsCollection);
+        }
+
+        public void AddtoList(int pitch)
+        {
+            CurrentNotes.Items.Add(pitch);
         }
 
         public void MusicNote_Click(object sender, MouseEventArgs e)
