@@ -19,6 +19,8 @@ namespace Piano2
             this.BackColor = Color.Black;
             /*  change the size for the small button of piano*/
             this.Size = new Size(40,120);
+            FlatAppearance.BorderSize = 1;
+            FlatAppearance.BorderColor = Color.White;
         }
             
 

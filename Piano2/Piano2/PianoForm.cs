@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,16 +22,17 @@ namespace Piano2
 
         /*variables & arrays*/
         string beforeWave;
-        string soundSpath = @"C:\Users\emana\GodPiano\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
+        string soundSpath = @"C:\Users\Etienne\Documents\GitHub\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
         double count = 0;
         private SoundPlayer sp;
         private Timer timer1;
         private Stopwatch stopWatch;
-        List<MusicNote> MusicNoteObejectsCollection = new List<MusicNote>();//to store music notes
+        List<MusicNote> MusicNoteObjectsCollection = new List<MusicNote>();//to store music notes
         int xLoc = 100;
         int yLoc = 200;
 
         int iXloc = 40, iYloc = 10;
+        int tempo;
 
 
 
@@ -198,7 +200,7 @@ namespace Piano2
                         #endregion
 
                         MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape, flip, isBlack);
-                        MusicNoteObejectsCollection.Add(mn);
+                        MusicNoteObjectsCollection.Add(mn);
                         mn.Location = new Point(iXloc, iYloc);
                         this.panel2.Controls.Add(mn);
                         iXloc += 25;
@@ -226,6 +228,8 @@ namespace Piano2
             //((sender as Button).Tag as Stopwatch).Start();
             sp = new SoundPlayer();
 
+
+
             foreach (Muskey mk in this.panel1.Controls)
             {
                 if (sender == mk) // if this is true for a specific key that is pressed on the musik keyboard
@@ -250,14 +254,14 @@ namespace Piano2
         private void PianoForm_Load(object sender, EventArgs e)
         {
             //adding panel1 ~ the buttons
-            this.panel1.Location = new Point(xLoc,yLoc+50);
+            this.panel1.Location = new Point(xLoc+30,yLoc+50);
             //this.panel1.BackColor = Color.Azure;
             this.panel1.Size = new Size(600,200);
             this.Controls.Add(panel1);
             //adding the panel2 ~ the music lines.
             this.panel2.Location = new Point(xLoc, 60);
             
-            this.panel2.BackgroundImage = Image.FromFile(@"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\MusicLines.png");
+            this.panel2.BackgroundImage = Image.FromFile(@"C:\Users\Etienne\Documents\GitHub\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\MusicLines.png");
             this.panel2.BackColor = Color.Transparent;
             this.panel2.Size = new Size(669, 192);
             this.Controls.Add(panel2);
@@ -286,7 +290,7 @@ namespace Piano2
                 int pitch = blackPitch[k];
                 /*  note here we are using xPoss unlike in notes (xPos)*/
                 int xP = xPos[k]*2;
-                bmk = new BlackMuskey(pitch, xP, 10);
+                bmk = new BlackMuskey(pitch, xP, 11);
                 bmk.Tag = new Stopwatch();
                 bmk.MouseDown += new MouseEventHandler(this.button1_MouseDown);
                 bmk.MouseUp += new MouseEventHandler(this.button1_MouseUp);
@@ -299,6 +303,118 @@ namespace Piano2
         private void timer1_Tick(object sender, EventArgs e)
         {
             count++;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //tempo
+        {
+            if (DropDown.SelectedItem == "Grave")
+            {
+                tempo = 2000;
+            }
+            else if (DropDown.SelectedItem == "Largo")
+            {
+
+                tempo = 1200;
+            }
+            else if (DropDown.SelectedItem == "Lento")
+            {
+
+                tempo = 1143;
+            }
+            else if (DropDown.SelectedItem == "Adagio")
+            {
+
+                tempo = 845;
+            }
+            else if (DropDown.SelectedItem == "Andante")
+            {
+
+                tempo = 652;
+            }
+            else if (DropDown.SelectedItem == "Moderato")
+            {
+
+                tempo = 526;
+            }
+            else if (DropDown.SelectedItem == "Allegro")
+            {
+
+                tempo = 435;
+            }
+            else if (DropDown.SelectedItem == "Presto")
+            {
+
+                tempo = 326;
+            }
+        }
+
+        private void button1_Click(object sender, System.EventArgs e) //Play
+        {
+            foreach (MusicNote mn in MusicNoteObjectsCollection) 
+            {
+                sp.SoundLocation = soundSpath + mn.pitch.ToString() + ".wav";
+                sp.Play();
+                Task.Delay(mn.noteDuration * tempo).ContinueWith(t => sp.Stop());
+                Task.Delay(tempo).Wait();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) //Clear
+        {
+            MusicNoteObjectsCollection.Clear();
+            this.panel2.Controls.Clear();
+            iXloc = 40;
+        }
+
+        private void button2_Click(object sender, EventArgs e) //Save
+        {
+            SaveFileDialog Song = new SaveFileDialog();
+
+            if (Song.ShowDialog() == DialogResult.OK)
+            {
+               StreamWriter writer = new StreamWriter(Song.FileName);
+
+               foreach (MusicNote mn in MusicNoteObjectsCollection)
+               {
+                 writer.WriteLine(mn.pitch.ToString() +","+ mn.noteDuration.ToString() + "," + mn.noteShape + "," + mn.flip + "," + mn.isBlack);
+               }
+
+                writer.Close();
+                Song.Dispose();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e) //Load
+        {
+            using (OpenFileDialog loadsong = new OpenFileDialog() { ValidateNames = true, Multiselect = false })
+            {
+                string line = "";
+                if (loadsong.ShowDialog() == DialogResult.OK)
+                {
+                    StreamReader sr = new StreamReader(loadsong.FileName);
+                    while(line != null)
+                    {
+                        line = sr.ReadLine();
+                        if (line != null)
+                        {
+                            string[] entries = line.Split(',');
+                            //MusicNote song = new MusicNote();
+                        }
+                    }
+                }
+            }
+        }
+    
+
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.CurrentNotes.DataSource = MusicNoteObjectsCollection;
         }
 
         public void MusicNote_Click(object sender, MouseEventArgs e)
@@ -319,6 +435,7 @@ namespace Piano2
                     }
                     timer1.Enabled = false;
                     sp.Stop();
+
                 }
             }
         }

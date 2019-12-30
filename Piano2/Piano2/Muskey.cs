@@ -23,6 +23,8 @@ namespace Piano2
             notePitch = iPitch;
             Location = new Point(x,y);
             Size = new Size(40,160);
+            FlatStyle = FlatStyle.Flat;
+            TabIndex = 0;
         }
     }
 }

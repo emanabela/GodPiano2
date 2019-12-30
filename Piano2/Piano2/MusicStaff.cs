@@ -12,23 +12,12 @@ namespace Piano2
         /*  ...when constructed in the main window it display itself as a rectangle of a fixed
             size with 5 lines of music staff. The lines are fixed-relative to the upper left corner
             of the panel*/
-        #region Data Fields
-        
-        
-        Button play = new Button();
-        Button save = new Button();
-        Button load = new Button();
-        int tempo; // this reflects overall speed in ms (allegro/addagio,etc.)
-
-
-        #endregion
 
         #region Operations
-        private void PlayLB()
+        void PlayLB(List<MusicNote> MusicNoteObejectsCollection, int tempo)
         {
-            ///playing of the individual music note displayed on the music staff manually
-            ///by pointing and clicking mouse LB.
-            ///
+
+
         }
 
         private void PlayAll()

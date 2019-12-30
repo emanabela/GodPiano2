@@ -10,8 +10,8 @@ namespace Piano2
 {
     class MusicNote : PictureBox
     {
-        string soundSpath = @"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
-        public string path = @"C:\Users\emana\GodPiano\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\";
+        string soundSpath = @"C:\Users\Etienne\Documents\GitHub\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Sound files\mapped\";
+        public string path = @"C:\Users\Etienne\Documents\GitHub\GodPiano2\Piano2\Piano2\bin\Debug\Notes-Images\";
         public int pitch;
         private Stopwatch stopWatch;
         public string noteShape;

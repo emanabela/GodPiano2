@@ -78,6 +78,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="bin\Debug\Notes-Images\PNG format\Quaver.xcf" />
     <None Include="bin\Debug\Notes-Images\Quaver.xcf" />
     <None Include="Properties\Settings.settings">

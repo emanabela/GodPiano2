@@ -1,0 +1,3 @@
+Piano2.MusicNote, SizeMode: Normal
+Piano2.MusicNote, SizeMode: Normal
+Piano2.MusicNote, SizeMode: Normal
