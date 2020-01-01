@@ -389,7 +389,6 @@ namespace Piano2
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CurrentNotes.Items.Add(MusicNoteObjectsCollection);
         }
 
         public void AddtoList(int pitch)
